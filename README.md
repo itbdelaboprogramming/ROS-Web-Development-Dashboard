@@ -1,27 +1,42 @@
-# Olmap
+## Installaton 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.2.
+1. Install Node js and NPM from browser 
+[Download Node js](https://nodejs.org/en/).
+check node js and npm version :
 
-## Development server
+node -v
+npm -v
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+2. install Angular cli
 
-## Code scaffolding
+npm i @angular/cli
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+3. install Socket IO library
 
-## Build
+npm i socket.io
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+4. install openlayers library
 
-## Running unit tests
+npm i ol
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+5. install express
 
-## Running end-to-end tests
+npm install express
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
+## Running Program 
+to run the program two terminal is required (one to run node server and the other for running the frontend angular) 
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+1. Running Node to start the server
+make sure the directory is on ../olmap/server 
+
+node server.js
+
+2. Running Angular 
+make sure the directory is on ../olmap
+
+ng serve
+
+**Note: to make sure the websocket connection established please turn off the firewall on your computer
+
+
