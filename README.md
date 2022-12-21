@@ -1,4 +1,4 @@
-## Installaton 
+## Installation 
 
 1. Install Node js and NPM from browser 
 [Download Node js](https://nodejs.org/en/).
