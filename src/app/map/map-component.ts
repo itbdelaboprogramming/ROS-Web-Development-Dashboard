@@ -25,6 +25,7 @@ import { GpsdataService } from '../services/gpsdata.service';
 })
 export class MapComponent implements OnInit {
   public map: Map | undefined;
+  public satelitecnt:any
 
   constructor(private webSoc:WebsocketService, private gpsData:GpsdataService
     ) {this.gpsData.Init() }
@@ -36,6 +37,8 @@ export class MapComponent implements OnInit {
     // console.log(this.webSoc.gpsdata)
 
     this.initmap(this.gpsData);
+    this.satelitecnt=this.gpsData.sateliteCount()
+
     // this.webSoc.openWebSocket()
 
   }
@@ -71,6 +74,7 @@ export class MapComponent implements OnInit {
       layers: [
         new Tile({
           source: new OSM()
+
         }),
         gpsLayer
         //MapLayer

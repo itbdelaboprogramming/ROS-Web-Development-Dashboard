@@ -37,8 +37,15 @@ const io = require('socket.io')(server, {
 io.on("connection", (socket) => {
     // send a message to the client
     socket.emit("hello","world");
+
+    socket.on("init",(data) => {
+      console.log(data)
+    })
+
     socket.on("gps", (data) => {
+        console.log(data)
         io.emit("gps-next",data)
+
       });
 
 

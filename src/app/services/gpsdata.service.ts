@@ -10,6 +10,7 @@ export class GpsdataService {
   public long:any
   public lat:any
   public head:any
+  public satelite:any
   constructor(private webSoc:WebsocketService) { }
 
   Init() {
@@ -18,6 +19,7 @@ export class GpsdataService {
       this.long=this.parsedData.longitude
       this.lat=this.parsedData.latitude
       this.head=this.parsedData.heading
+      this.satelite=this.parsedData.satelite
       // console.log(this.lat)
       // console.log(this.long)
 
@@ -27,6 +29,10 @@ export class GpsdataService {
   heading(){
     // console.log(this.head)
     return(this.head)
+  }
+
+  sateliteCount(){
+    return(this.satelite)
   }
 
   coordinate(){
