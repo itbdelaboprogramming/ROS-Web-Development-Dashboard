@@ -32,6 +32,8 @@ make sure the directory is on ../olmap/server
 ```bash
 node server.js
 ```
+**Note: this is done if the server running websocket is in the same device as the angular app
+
 2. Running Angular 
 make sure the directory is on ../olmap
 ```bash
