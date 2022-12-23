@@ -9,9 +9,9 @@ const dotenv = require("dotenv");
 const app = express();
 
 app.use(express.json());
-// 2). Morgan Package untuk melihat request yang masuk
+// Morgan Package untuk melihat request yang masuk
 app.use(morgan('dev'))
-    // 3). CORS
+    // CORS
 app.use(cors())
 app.all('/', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -19,12 +19,14 @@ app.all('/', function(req, res, next) {
     next()
 });
 
+// Open server on port 3000
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
     let ports = server.address().port;
     console.log("App now running on port", ports);
 });
 
+// Setup Socket IO and CORS handler
 const io = require('socket.io')(server, {
     cors: {
         origin: ["http://localhost:4200"],
@@ -34,16 +36,22 @@ const io = require('socket.io')(server, {
     },
 });
 
+// Make an event connection when client connected
 io.on("connection", (socket) => {
-    // send a message to the client
+
+    // Send a message to the client at "hello" event
     socket.emit("hello","world");
 
-    socket.on("init",(data) => {
-      console.log(data)
-    })
+    //  // Listen to a message at "init" event from client
+    // socket.on("init",(data) => {
+    //   console.log(data)
+    // })
 
+    // Listen to gps data at "gps" event from raspberry pi client
     socket.on("gps", (data) => {
         console.log(data)
+
+         // Send received gps data in "gps-next" event in order to be received by angular app client
         io.emit("gps-next",data)
 
       });

@@ -28,30 +28,33 @@ export class MapComponent implements OnInit {
   public satelitecnt:any
 
   constructor(private webSoc:WebsocketService, private gpsData:GpsdataService
-    ) {this.gpsData.Init() }
+    ) {
+      // Start Socket IO connection and receive data
+      this.gpsData.Init()
+
+    }
 
   async ngOnInit() {
 
 
-    // this.webSoc.listen("gps-next");
-    // console.log(this.webSoc.gpsdata)
-
+    // Start map initiation function and pass gps data
     this.initmap(this.gpsData);
     this.satelitecnt=this.gpsData.sateliteCount()
 
-    // this.webSoc.openWebSocket()
 
   }
 
+  // Function to initiate gps data visualization in map
   initmap(gpsdataservice:any) {
     console.log("calling initmap");
 
-
+    // Create a new feature for gps icon
     var gpsFeature = new Feature({
       geometry : new Point(fromLonLat([-6.5360378062373,63.65079914412625]))
       // geometry : new Point(fromLonLat([this.lat,this.long]))
     });
 
+     // Set the style for gps icon
     gpsFeature.setStyle(new Style({
       image : new Icon(({
         src: 'assets/arrow.svg',
@@ -61,14 +64,17 @@ export class MapComponent implements OnInit {
       }))
     }));
 
+    // Make a vector source for new gps layer from gps feature
     var gpsSource = new VectorSource({
       features: [gpsFeature]
     });
 
+    // Make a new vector layer from gps source
     var gpsLayer = new VectorLayer({
       source : gpsSource
     });
 
+    // Make a map and setup the map source, layer, and view
     this.map = new Map({
       target: 'map',
       layers: [
@@ -81,19 +87,21 @@ export class MapComponent implements OnInit {
       ],
       view: new View({
         center:fromLonLat([-6.5360378062373,63.65079914412625]),
-        zoom: 15,
+        zoom: 10,
         enableRotation: false
       })
 
     });
+
+    // Make an interval function that will update position and heading of gps icon every 0.1 second
     setInterval(function refreshIcon() {
       //console.log("getmission : ",flightDataService.getMission())
       // gpsdataservice.gpess()
 
       gpsSource.clear()
       var temp_gpsFeature = new Feature({
-        // geometry : new Point(fromLonLat(MavlinkService.getCoordinate()))//masi pake data dummy
-        geometry : new Point(fromLonLat(gpsdataservice.coordinate()))//masi pake data dummy
+        // geometry : new Point(fromLonLat(MavlinkService.getCoordinate()))
+        geometry : new Point(fromLonLat(gpsdataservice.coordinate()))
       });
 
       temp_gpsFeature.setStyle(new Style({
@@ -101,7 +109,6 @@ export class MapComponent implements OnInit {
           src: 'assets/arrow.svg',
           imgSize: [600, 600],
           scale: 0.1,
-          // rotation : flightDataService.getFlightRecords().yaw
           rotation: gpsdataservice.heading()
         }))
       }));
