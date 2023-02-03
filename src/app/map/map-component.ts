@@ -50,8 +50,8 @@ export class MapComponent implements OnInit {
 
     // Create a new feature for gps icon
     var gpsFeature = new Feature({
-      geometry : new Point(fromLonLat([-6.5360378062373,63.65079914412625]))
-      // geometry : new Point(fromLonLat([this.lat,this.long]))
+      // geometry : new Point(fromLonLat([-6.5360378062373,63.65079914412625]))
+      geometry : new Point(fromLonLat([gpsdataservice.coordinate()]))
     });
 
      // Set the style for gps icon
@@ -86,7 +86,7 @@ export class MapComponent implements OnInit {
         //MapLayer
       ],
       view: new View({
-        center:fromLonLat([-6.5360378062373,63.65079914412625]),
+        center:fromLonLat([gpsdataservice.coordinate()]),
         zoom: 10,
         enableRotation: false
       })
