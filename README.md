@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Installation 
 
 1. Install Node js and NPM from browser 
@@ -42,3 +43,7 @@ ng serve
 **Note: to make sure the websocket connection established please turn off the firewall on your computer
 
 
+=======
+# GPS-Dashboard
+Development of GPS Dashboard for MSD700 (NIW Product)
+>>>>>>> bb3b0939d6b9e69eb718f58ad53bc3b07ba555fd
