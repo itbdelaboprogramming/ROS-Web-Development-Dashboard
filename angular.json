@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "olmap": {
+    "rvizRoombaApp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/olmap",
+            "outputPath": "dist/rviz-roomba-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -29,7 +29,17 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/roslib.js",
+              "src/assets/easeljs.js",
+              "src/assets/eventemitter2.min.js",
+              "src/assets/ros2d.js",
+              "src/assets/test1.js",
+              "src/assets/Nav2D.js",
+              "src/assets/navigator/OccupancyGridClientNav.js",
+              "src/assets/navigator/Navigator.js",
+              "src/assets/navigator/ImageMapClientNav.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -68,10 +78,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "olmap:build:production"
+              "browserTarget": "rvizRoombaApp:build:production"
             },
             "development": {
-              "browserTarget": "olmap:build:development"
+              "browserTarget": "rvizRoombaApp:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +89,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "olmap:build"
+            "browserTarget": "rvizRoombaApp:build"
           }
         },
         "test": {
@@ -96,11 +106,22 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/roslib.js",
+              "src/assets/easeljs.js",
+              "src/assets/eventemitter2.min.js",
+              "src/assets/ros2d.js",
+              "src/assets/test1.js",
+              "src/assets/Nav2D.js",
+              "src/assets/navigator/OccupancyGridClientNav.js",
+              "src/assets/navigator/Navigator.js",
+              "src/assets/navigator/ImageMapClientNav.js"
+
+            ]
           }
         }
       }
     }
   },
-  "defaultProject": "olmap"
+  "defaultProject": "rvizRoombaApp"
 }
