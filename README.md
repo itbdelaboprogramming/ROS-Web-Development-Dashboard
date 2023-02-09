@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # RvizRoombaApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
@@ -25,3 +26,6 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+=======
+# GPS-Tracking-ROS
+>>>>>>> d58117acd9075bac86c4a08655ea81aff9d6a71c
