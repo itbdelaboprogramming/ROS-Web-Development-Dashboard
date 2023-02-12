@@ -33,7 +33,7 @@ export class NavigationComponent implements OnInit {
   // public myScriptElement : HTMLScriptElement;
   public ros:any
 
-  constructor(private rosServ:RoslibService, private renderer:Renderer2, private addscript:AddscriptService) {
+  constructor(public rosServ:RoslibService, private renderer:Renderer2, private addscript:AddscriptService) {
     // this.myScriptElement = document.createElement("script");
     // this.myScriptElement.src = "https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.js";
     // document.body.appendChild(this.myScriptElement);
@@ -41,19 +41,12 @@ export class NavigationComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.rosServ.Init();
-        // call the externaljs functions
-        // getToday(); // without param
-        // greetings('rohol'); // with param
-    // const scriptElement = this.addscript.loadJsScript(this.renderer,SCRIPT_PATH);
-    // scriptElement.onload = () => {
-    //   console.log("ROS2D loaded")
-    //   this.mapp();
-    // }
-  //     this.addscript.setJsonLd(this.renderer, JSON_LD_DATA);
-  // console.log('JSON_LD_DATA Script loaded');
-  this.navv();
 
+  }
+
+  public startRos(){
+    this.rosServ.Init();
+    this.navv();
   }
 
   public navv(){

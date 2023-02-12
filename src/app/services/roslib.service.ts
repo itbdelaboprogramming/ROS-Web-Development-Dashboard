@@ -14,21 +14,22 @@ export class RoslibService {
   public ros:any
   public subs:any
   public socket:any
+  public ip =''
   constructor() {
 
 
    }
 
    Init(){
-    this.socket = io('http://localhost:3000')
-    this.socket.on('connect', () => {
-      this.ros = new ROSLIB.Ros({
-        url: 'ws://192.168.18.43:9090'
-      });
-      })
-    // this.ros= new ROSLIB.Ros({
-    //   url : 'ws://192.168.18.43:9090'
-    // })
+    // this.socket = io('http://localhost:3000')
+    // this.socket.on('connect', () => {
+    //   this.ros = new ROSLIB.Ros({
+    //     url: 'ws://192.168.18.43:9090'
+    //   });
+    //   })
+    this.ros= new ROSLIB.Ros({
+      url : 'ws://'+this.ip+':9090'
+    })
     this.ros.on("connection",()=>{
       console.log("connection established")
     })

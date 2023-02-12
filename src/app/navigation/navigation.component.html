@@ -8,7 +8,8 @@
 
 
 <p>navigation works!</p>
-<button (click)="fwd()">FORWARD</button>
-<button (click)="stop()">STOP</button>
+<input [(ngModel)]="rosServ.ip">
+<button (click)="startRos()">ENTER</button>
+<!-- <p>{{rosServ.ip}}</p> -->
 
 <div id="nav" class="map"></div>
