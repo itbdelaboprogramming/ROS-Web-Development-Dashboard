@@ -1,0 +1,8 @@
+<div class="joystick">
+  <div class="joystick-bg"></div>
+  <div class="joystick-thumb" [ngStyle]="{'left': x + '%', 'top': y + '%'}" (mousedown)="startJoystick($event)"></div>
+</div>
+<div class="joystick-output">
+  X: {{ x }}% Y: {{ y }}%
+</div>
+
