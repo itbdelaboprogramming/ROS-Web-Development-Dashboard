@@ -15,7 +15,7 @@ import { AddscriptService } from '../services/addscript.service';
 //   "description": "Web Studio"
 // }
 // `;
-// declare var ROSLIB:any;
+declare var ROSLIB:any;
 declare var ROS2D:any;
 declare var NAV2D:any;
 declare var getToday: any;
@@ -41,9 +41,12 @@ export class NavigationComponent implements OnInit {
    }
 
   ngOnInit(): void {
-
+    this.rosServ.Init();
+    this.navv();
   }
 
+
+  
   public startRos(){
     this.rosServ.Init();
     this.navv();

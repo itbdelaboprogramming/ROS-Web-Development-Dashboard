@@ -17,6 +17,9 @@ export class RoslibService {
   public ip =''
   constructor() {
 
+    // const socketUrl = 'ws://localhost:3000/websocket'
+    // this.socket = new WebSocket(socketUrl);
+
 
    }
 
@@ -28,6 +31,7 @@ export class RoslibService {
     //   });
     //   })
     this.ros= new ROSLIB.Ros({
+        // url : 'ws://localhost:8080'
       url : 'ws://'+this.ip+':9090'
     })
     this.ros.on("connection",()=>{

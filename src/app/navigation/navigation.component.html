@@ -7,9 +7,11 @@
 </head>
 
 
-<p>navigation works!</p>
+<p>Enter robot ip address</p>
 <input [(ngModel)]="rosServ.ip">
 <button (click)="startRos()">ENTER</button>
 <!-- <p>{{rosServ.ip}}</p> -->
 
 <div id="nav" class="map"></div>
+
+<app-map-display></app-map-display>

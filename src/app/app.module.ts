@@ -7,18 +7,26 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { SlamComponent } from './slam/slam.component';
 import { JoystickComponent } from './joystick/joystick.component';
 import { FormsModule } from '@angular/forms';
+import { MapDisplayComponent } from './map-display/map-display.component';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { DatabaseComponent } from './database/database.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     SlamComponent,
-    JoystickComponent
+    JoystickComponent,
+    MapDisplayComponent,
+    DatabaseComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

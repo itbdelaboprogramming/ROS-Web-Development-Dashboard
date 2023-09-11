@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RoslibService } from '../services/roslib.service';
+import { WebSocketService } from '../services/web-socket.service';
 
 declare var ROSLIB:any
 declare var ROS2D:any;
@@ -12,9 +13,16 @@ declare var NAV2D:any;
 })
 export class SlamComponent implements OnInit {
 
-  constructor(private rosServ:RoslibService) { }
+  constructor(public rosServ:RoslibService, public websoc:WebSocketService) { }
 
   ngOnInit(): void {
+
+    this.websoc.Init();
+
+
+  }
+
+  public startRos(){
     this.rosServ.Init();
     this.doSlam();
   }
@@ -142,6 +150,14 @@ export class SlamComponent implements OnInit {
 
    })
    pub.publish(mess)
+ }
+
+ saveMap(){
+this.websoc.emit('save-map',true)
+ }
+
+ loadMap(){
+  this.websoc.emit('load-map',true)
  }
 
 }
