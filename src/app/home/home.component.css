@@ -1,0 +1,333 @@
+/* styles.css */
+body {
+  background-image: url('../../assets/images/Walpaper.png');
+  /* Replace with the path to your image */
+  background-size: cover;
+  /* This property ensures the image covers the entire background */
+  background-repeat: no-repeat;
+  /* Prevent the image from repeating */
+  background-attachment: fixed;
+  /* Keeps the background fixed when scrolling */
+  min-height: 100vh;
+  /* Set a minimum height of the viewport height (100vh) */
+}
+
+/* CSS for the close button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  /* Adjust the top position as needed */
+  right: 10px;
+  /* Adjust the right position as needed */
+  background-color: #0C98B4;
+  border: 2px solid #60E3D5;
+  /* Red background color, you can change this */
+  color: #FFFFFF;
+  /* White text color */
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: Inter;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 19px;
+  letter-spacing: 0em;
+  z-index: 1;
+  /* Ensure it's on top of other content */
+}
+
+.close-button:hover {
+  background-color: #DD0000;
+  /* Change color on hover */
+}
+
+/* Optionally, you can center content vertically and horizontally */
+body::before {
+  content: "";
+  display: block;
+  height: 100%;
+  /* vertical-align: middle; */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  height: 30vh;
+
+  padding-top: 12%;
+}
+
+.centered-content .greetings {
+  font-family: Inter;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 39px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #0567A6;
+  text-shadow: 0px 4px 4px #60E3D5;
+  margin-bottom: 2%;
+}
+
+/* styles.css */
+footer {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100vw;
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-bottom: 1%;
+}
+
+.handling-instructions,
+.safety-precautions {
+  height: 10vh;
+  width: 10%;
+  background-color: #0C98B4;
+  border: 2px solid #60E3D5;
+  border-radius: 10px;
+  margin-right: 10px;
+  margin-left: 2%;
+
+  font-family: Inter;
+  font-size: 0.8em;
+  font-weight: 500;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.handling-instructions p,
+.safety-precautions p {
+  margin-top: -2%;
+}
+
+.handling-instructions img,
+.safety-precautions img {
+  width: 50%;
+  height: 50%;
+}
+
+/* Add this CSS for the copyright section */
+.copyright {
+  margin-left: auto;
+  margin-top: auto;
+  /* Pushes the copyright text to the bottom */
+  color: #D0E1E7;
+  background-color: #4E6CB1;
+  border: 2px solid #60E3D5;
+  border-radius: 10px;
+  font-size: 0.8em;
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+/* Data section */
+
+.data-section {
+  width: 80%;
+  padding-left: 10%;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.label-section {
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: #0567A6;
+  border: 2px solid #60E3D5;
+
+  font-family: Inter;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 27px;
+  letter-spacing: 0em;
+  text-align: left;
+
+  color: #FFFFFF;
+
+  margin-bottom: 15px;
+
+}
+
+.label-section img {
+  width: 30px;
+  /* You can adjust the size as needed */
+  height: 30px;
+  /* You can adjust the size as needed */
+  vertical-align: middle;
+  margin-right: 0.2em;
+  /* Optional spacing between the icon and text */
+}
+
+.label-section p {
+  display: flex;
+  align-items: center;
+  /* Vertically center the text and icon */
+}
+
+/* Basic styling for the form */
+.input-section form {
+  max-width: 400px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  display: grid;
+
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: #D9FEFA;
+  border: 2px solid #60E3D5;
+  gap: 10px;
+  justify-items: end;
+}
+
+.input-section label {
+  font-weight: bold;
+  color: #0567A6;
+  font-family: Inter;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 27px;
+  letter-spacing: 0em;
+  /* text-align: center; */
+}
+
+.input-section input[type="text"] {
+  padding: 10px;
+  border-radius: 3px;
+  width: 80%;
+  border: none;
+  background-color: #97E5F4;
+
+  font-family: Inter;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 23px;
+  letter-spacing: 0em;
+
+  /* Make the input field stretch to the full width */
+}
+
+.input-section input[type="submit"] {
+  width: fit-content;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 3px;
+  grid-column: span 2;
+
+  background-color: #0C98B4;
+  border: 2px solid #60E3D5;
+
+  font-family: Inter;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 19px;
+  letter-spacing: 0em;
+
+  /* Make the submit button span two columns */
+}
+
+.input-section input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Center the content inside .util_section using Flexbox */
+/* Center the content inside .util_section using Flexbox */
+.util_section {
+  margin-left: auto;
+  width: 25vw;
+  height: 65vh;
+  background-color: #ECF4F6;
+  border-radius: 10px;
+  border: 2px solid #0C98B4;
+  box-shadow: -10px 10px 4px 0px #00000080;
+
+  /* Add Flexbox properties to center the content */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.data_util form {
+  max-width: 400px;
+  width: 60%;
+  padding: 20px;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* Two equal columns */
+
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: #D9FEFA;
+  border: 2px solid #60E3D5;
+  justify-items: center;
+  gap: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.data_util form label {
+  text-align: right;
+  font-weight: bold;
+  color: #0567A6;
+  font-family: Inter;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 27px;
+  letter-spacing: 0em;
+}
+
+.data_util form input[type="text"] {
+  padding: 10px;
+  border-radius: 3px;
+  width: 100%;
+  border: none;
+  background-color: #97E5F4;
+  font-family: Inter;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 23px;
+  letter-spacing: 0em;
+}
+
+.submit_button {
+  margin-top: 10px;
+  width: fit-content;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  /* Vertically center the content */
+  background-color: #0C98B4;
+  border: 2px solid #60E3D5;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 10px 20px;
+  color: #fff;
+  font-family: Inter;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 19px;
+  letter-spacing: 0em;
+  border-radius: 10px;
+
+  margin-left: auto;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+.submit_button img {
+  height: 30px;
+  width: 30px;
+  margin-left: 10px;
+  /* Add spacing between the text and the image */
+}

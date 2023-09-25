@@ -1,0 +1,9 @@
+.map {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+
+  .control {
+    margin-top: 10px;
+  }
