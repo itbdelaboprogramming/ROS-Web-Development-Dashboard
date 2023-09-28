@@ -24,7 +24,6 @@ body {
   /* Red background color, you can change this */
   color: #FFFFFF;
   /* White text color */
-  border: none;
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
@@ -38,7 +37,8 @@ body {
 }
 
 .close-button:hover {
-  background-color: #DD0000;
+  box-shadow: -4px 4px 4px 0px #00000040;
+  transition: 1s;
   /* Change color on hover */
 }
 
@@ -59,7 +59,8 @@ body::before {
   /* align-items: center; */
   height: 30vh;
 
-  padding-top: 12%;
+  padding-top: 5%;
+
 }
 
 .centered-content .greetings {
@@ -72,60 +73,6 @@ body::before {
   color: #0567A6;
   text-shadow: 0px 4px 4px #60E3D5;
   margin-bottom: 2%;
-}
-
-/* styles.css */
-footer {
-  display: flex;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 100vw;
-  padding-left: 1%;
-  padding-right: 1%;
-  padding-bottom: 1%;
-}
-
-.handling-instructions,
-.safety-precautions {
-  height: 10vh;
-  width: 10%;
-  background-color: #0C98B4;
-  border: 2px solid #60E3D5;
-  border-radius: 10px;
-  margin-right: 10px;
-  margin-left: 2%;
-
-  font-family: Inter;
-  font-size: 0.8em;
-  font-weight: 500;
-  text-align: center;
-  color: #FFFFFF;
-}
-
-.handling-instructions p,
-.safety-precautions p {
-  margin-top: -2%;
-}
-
-.handling-instructions img,
-.safety-precautions img {
-  width: 50%;
-  height: 50%;
-}
-
-/* Add this CSS for the copyright section */
-.copyright {
-  margin-left: auto;
-  margin-top: auto;
-  /* Pushes the copyright text to the bottom */
-  color: #D0E1E7;
-  background-color: #4E6CB1;
-  border: 2px solid #60E3D5;
-  border-radius: 10px;
-  font-size: 0.8em;
-  padding-left: 1%;
-  padding-right: 1%;
 }
 
 /* Data section */
@@ -221,7 +168,7 @@ footer {
   border: none;
   padding: 10px 20px;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 5px;
   grid-column: span 2;
 
   background-color: #0C98B4;
@@ -237,7 +184,9 @@ footer {
 }
 
 .input-section input[type="submit"]:hover {
-  background-color: #0056b3;
+  box-shadow: -4px 4px 4px 0px #00000040;
+  transition: 1s;
+
 }
 
 /* Center the content inside .util_section using Flexbox */
@@ -255,6 +204,9 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  position: absolute;
+  right: 10%;
   /* align-items: center; */
 }
 
@@ -325,9 +277,17 @@ footer {
   margin-right: 20px;
 }
 
+.submit_button:hover {
+  cursor: pointer;
+  box-shadow: -4px 4px 4px 0px #00000040;
+  transition: 1s;
+
+}
+
 .submit_button img {
   height: 30px;
   width: 30px;
   margin-left: 10px;
   /* Add spacing between the text and the image */
 }
+

@@ -1,0 +1,112 @@
+.side-section {
+  width: 12vw;
+  height: 20vh;
+
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+}
+
+.side-section .greetings {
+  width: 12vw;
+  height: 5vh;
+  background-color: #0567A6;
+  border: 2px solid #60E3D5;
+  border-radius: 20px;
+  padding: 10px;
+
+  display: flex;
+  align-items: center;
+  /* Vertically align content */
+
+  margin-bottom: 20px;
+}
+
+.side-section .greetings img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  /* Add some spacing between img and text */
+}
+
+.side-section .greetings p {
+  margin: 0;
+  /* Remove default margin for <p> element */
+  font-family: Inter;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 27px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #FFFFFF;
+}
+
+.side-section .menu {
+  width: 13vw;
+  height: 25vh;
+  background-color: #D0E1E7;
+  border: 2px solid #0C98B4;
+
+  border-radius: 20px;
+
+  display: flex;
+
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  box-shadow: -10px 10px 4px 0px #00000040;
+
+
+}
+
+.side-section .menu div a {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  height: max-content;
+  background-color: #0567A6;
+  border: 2px solid #60E3D5;
+  border-radius: 20px;
+
+  display: flex;
+  align-items: center;
+  padding-left: 10%;
+
+  /* Vertically align content */
+
+  font-family: Inter;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 23px;
+  letter-spacing: 0em;
+
+  color: #FFFFFF;
+
+  text-decoration: none;
+
+}
+
+.side-section .menu div p {
+  justify-self: start;
+}
+
+.side-section .menu img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+
+.active a {
+  background-color: #60E3D5 !important;
+}
+
+.side-section .menu div a:hover {
+
+  background-color: #60E3D5 !important;
+  border: 2px solid #0567A6;
+}

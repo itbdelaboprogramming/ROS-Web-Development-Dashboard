@@ -1,0 +1,33 @@
+<body>
+  <header>
+    <button class="close-button" (click)="onCloseButtonClick()">X</button>
+  </header>
+
+  <main>
+    <app-control-navbar></app-control-navbar>
+
+    <div class="map-section">
+      <div class="center-div">
+        <img class="location" src="../../assets/icons/Icon.svg" alt="" />
+        <p>No map have been selected for navigation yet</p>
+        <div class="information-section">
+          <img
+            src="../../assets/icons/information-circle-svgrepo-com (1).svg"
+            alt=""
+          />
+          <p>
+            Please go to the <span class="bolder">DATABASE</span> and choose the
+            map to load
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <app-confirm-dialog
+      *ngIf="showConfirmSection"
+      (cancelClick)="onCancelClick()"
+      [message]="'Are you sure you want to close this app?'"
+    ></app-confirm-dialog>
+    <app-footer></app-footer>
+  </main>
+</body>

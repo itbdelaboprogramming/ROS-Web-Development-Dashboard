@@ -1,4 +1,10 @@
 /* styles.css */
+main {
+  display: flex;
+  justify-content: space-between;
+}
+
+
 body {
   background-image: url('../../assets/images/Walpaper.png');
   /* Replace with the path to your image */
@@ -11,6 +17,7 @@ body {
   min-height: 100vh;
   /* Set a minimum height of the viewport height (100vh) */
   position: relative;
+
   /* Add this to make ::before positioning relative to body */
 }
 
@@ -67,8 +74,7 @@ body::before {
 
 main {
   display: flex;
-  padding: 20px;
-  gap: 50px;
+  justify-content: space-between;
 }
 
 
@@ -83,16 +89,22 @@ main {
   background-color: #D0E1E7;
   border: 2px solid #0C98B4;
   border-radius: 20px;
-  display: flex;
-  justify-content: center;
+
   /* Horizontally center the content */
-  align-items: center;
 
   margin-top: 10vh;
 
   box-shadow: -10px 10px 4px 0px #00000040;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 
   z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* --------------------------------------------- */
@@ -107,47 +119,56 @@ main {
   text-align: left;
   color: #0C98B4;
   text-align: center;
+
 }
 
 .center-div .location {
-  width: 10%;
-  height: 10%;
+  width: 30%;
+  height: 30%;
 }
 
 .information-section {
-  display: flex; /* Membuatnya menjadi flex container */
-  align-items: center; /* Mengatur konten secara vertikal di tengah */
-  justify-content: center; /* Mengatur konten secara horizontal di tengah */
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  /* Membuatnya menjadi flex container */
+  align-items: center;
+  /* Mengatur konten secara vertikal di tengah */
+  justify-content: center;
+  /* Mengatur konten secara horizontal di tengah */
   background-color: #F6F0F0;
   width: 100%;
   border: 5px solid #60E3D5;
   border-radius: 10px;
-  padding: 10px; /* Menambahkan padding agar lebih baik tampilannya */
+  padding: 10px;
+  /* Menambahkan padding agar lebih baik tampilannya */
 }
 
 .center-div .information-section img {
-  width: 30px; /* Sesuaikan ukuran gambar sesuai kebutuhan */
-  height: 30px; /* Sesuaikan ukuran gambar sesuai kebutuhan */
-  margin-right: 10px; /* Menambahkan jarak antara gambar dan teks */
+  width: 30px;
+  /* Sesuaikan ukuran gambar sesuai kebutuhan */
+  height: 30px;
+  /* Sesuaikan ukuran gambar sesuai kebutuhan */
+  margin-right: 10px;
+  /* Menambahkan jarak antara gambar dan teks */
 }
 
 .information-section p {
-  display: inline-block;
-  vertical-align: middle; /* Mengatur teks secara vertikal di tengah gambar */
-  margin: 0; /* Menghapus margin default untuk elemen <p> */
+  align-self: center; /* Vertically center the <p> element within its container */
+  margin: 0; /* Remove default margin for <p> element */
   font-family: Inter;
   font-size: 1em;
   font-weight: 500;
   line-height: 27px;
   letter-spacing: 0em;
   color: #0C98B4;
-  text-align: center; /* Mengatur teks menjadi rata tengah secara horizontal */
+  text-align: center; /* Horizontally center the text */
 }
 
-.bolder{
+.bolder {
   font-weight: 700;
 }
 
-app-control-navbar{
+app-control-navbar {
   z-index: 3;
 }

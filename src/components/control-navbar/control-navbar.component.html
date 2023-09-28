@@ -1,0 +1,26 @@
+<div class="side-section">
+  <div class="greetings">
+    <img src="../../assets/icons/user-10-svgrepo-com.svg" alt="" />
+    <p>Welcome, Unit A!</p>
+  </div>
+  <div class="menu">
+    <div class="controll-mode" [ngClass]="{ active: isControlActive }">
+      <a routerLink="/control">
+        <img src="../../assets/icons/map-svgrepo-com.svg" alt="" />
+        <p>Control Mode</p>
+      </a>
+    </div>
+    <div class="mapping" [ngClass]="{ active: isMappingActive }">
+      <a routerLink="/mapping">
+        <img src="../../assets/icons/map-svgrepo-com.svg" alt="" />
+        <p>Mapping</p>
+      </a>
+    </div>
+    <div class="database" [ngClass]="{ active: isDatabaseActive }">
+      <a routerLink="/database">
+        <img src="../../assets/icons/map-svgrepo-com.svg" alt="" />
+        <p>Database</p>
+      </a>
+    </div>
+  </div>
+</div>

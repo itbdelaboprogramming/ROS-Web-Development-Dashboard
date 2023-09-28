@@ -1,0 +1,80 @@
+<body>
+  <main>
+    <app-control-navbar></app-control-navbar>
+    <header>
+      <button class="close-button" (click)="onCloseButtonClick()">X</button>
+    </header>
+    <div class="status-section">
+      <div class="status" [style.backgroundColor]="statusBackgroundColor()">
+        <img
+          src="../../assets/icons/information-circle-svgrepo-com.svg"
+          alt=""
+        />
+        <p>
+          Status : <span>{{ status }}</span>
+        </p>
+      </div>
+      <div class="lidar">
+        <p>LIDAR</p>
+      </div>
+      <div class="lidar-button">
+        <label class="toggle-switch">
+          <input type="checkbox" class="toggle-input" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+    <div class="map-section">
+      <div class="top-div">
+        <p>Create a New Map</p>
+        <div
+          class="play-button button-active"
+          [ngClass]="{ 'button-active': activeButton == 'play' }"
+          (click)="toggleButton('play')"
+        >
+          <p>Play</p>
+          <img src="../../assets/icons/3.svg" alt="" />
+        </div>
+        <div
+          class="pause-button"
+          [ngClass]="{ 'button-active': activeButton == 'pause' }"
+          (click)="toggleButton('pause')"
+        >
+          <p>Pause</p>
+          <img src="../../assets/icons/1.svg" alt="" />
+        </div>
+        <div class="stop-button" (click)="onStopButtonClick()">
+          <p>Stop</p>
+          <img src="../../assets/icons/2.svg" alt="" />
+        </div>
+        <div class="settings-button">
+          <img src="../../assets/icons/Setting.svg" alt="" />
+          <p>Please turn on the LiDAR before mapping.</p>
+        </div>
+      </div>
+      <div class="loading-bar">
+        <p>Completion</p>
+        <div class="progress-bar">
+          <div
+            class="progress"
+            [style.backgroundColor]="progressBackgroundColor()"
+          ></div>
+        </div>
+      </div>
+      <div class="center-div">
+        <img src="../../assets/icons/Frame.svg" alt="" />
+      </div>
+    </div>
+    <app-footer></app-footer>
+    <app-confirm-dialog
+      *ngIf="showConfirmSection"
+      (cancelClick)="onCancelClick()"
+      [message]="'Are you sure you want to close this app?'"
+    ></app-confirm-dialog>
+    <app-confirm-dialog
+      *ngIf="showConfirmStopSection"
+      (cancelClick)="onCancelClick()"
+      [message]="'Are you sure you want to stop and save the map?'"
+    ></app-confirm-dialog>
+  </main>
+</body>
