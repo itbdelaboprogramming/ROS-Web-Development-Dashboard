@@ -30,6 +30,7 @@ tr p, ::placeholder {
 
 
 .map-container {
+  margin: 50px;
   width: 50vw;
   background: #D0E1E7;
   border-radius: 20px;

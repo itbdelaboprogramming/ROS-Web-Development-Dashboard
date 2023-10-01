@@ -11,6 +11,8 @@ import { MapDisplayComponent } from './map-display/map-display.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { DatabaseComponent } from './database/database.component';
 import { HomeComponent } from './home/home.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { OperationComponent } from './operation/operation.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { HomeComponent } from './home/home.component';
     JoystickComponent,
     MapDisplayComponent,
     DatabaseComponent,
-    HomeComponent
+    HomeComponent,
+    NavBarComponent,
+    OperationComponent
   ],
   imports: [
     BrowserModule,
