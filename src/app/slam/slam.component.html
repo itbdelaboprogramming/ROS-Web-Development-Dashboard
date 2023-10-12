@@ -2,6 +2,9 @@
 <input [(ngModel)]="rosServ.ip">
 <button (click)="startRos()">ENTER</button>
 <div class="control">
+  <button (click)="sendCommand()">START</button>
+  <button (click)="zoomIn()">Zoom In</button>
+  <button (click)="zoomOut()">Zoom Out</button>
   <button (click)="Fwd()">Forward</button>
   <button (click)="Bwd()">Backward</button>
   <button (click)="Stop()">STOP</button>

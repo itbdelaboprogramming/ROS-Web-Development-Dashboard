@@ -13,6 +13,8 @@ declare var NAV2D:any;
 })
 export class SlamComponent implements OnInit {
 
+  public viewer:any;
+
   constructor(public rosServ:RoslibService, public websoc:WebSocketService) { }
 
   ngOnInit(): void {
@@ -24,12 +26,11 @@ export class SlamComponent implements OnInit {
 
   public startRos(){
     this.rosServ.Init();
-    this.doSlam();
   }
 
   doSlam(){
       // Create the main viewer.
-      var viewer = new ROS2D.Viewer({
+      this.viewer = new ROS2D.Viewer({
         divID : 'slam',
         width :750,
         height : 800
@@ -37,14 +38,49 @@ export class SlamComponent implements OnInit {
           // // Setup the nav client.
       var nav = new NAV2D.OccupancyGridClientNav({
         ros : this.rosServ.ros,
-        rootObject : viewer.scene,
-        viewer : viewer,
+        rootObject : this.viewer.scene,
+        viewer : this.viewer,
         continuous : true,
         serverName : '/move_base'
         // image :"assets/arrow.svg"
       });
 
   }
+  zoomIn(){
+    var zoom = new ROS2D.ZoomView({
+      ros: this.rosServ.ros,
+      rootObject: this.viewer.scene
+  });
+  zoom.startZoom(250, 250);
+  zoom.zoom(1.2);
+
+  }
+
+  zoomOut(){
+    var zoom = new ROS2D.ZoomView({
+      ros: this.rosServ.ros,
+      rootObject: this.viewer.scene
+  });
+  zoom.startZoom(250, 250);
+  zoom.zoom(0.8);
+
+  }
+
+  sendCommand() {
+    const command = new ROSLIB.Message({
+        data: 'do_slam'
+    });
+
+    const commandPublisher = new ROSLIB.Topic({
+        ros: this.rosServ.ros,
+        name: 'webapp_command',
+        messageType: 'std_msgs/String'
+    });
+
+    commandPublisher.publish(command);
+    setTimeout(()=>{this.doSlam()},5000)
+
+}
 
   Fwd(){
     var pub = new ROSLIB.Topic({
