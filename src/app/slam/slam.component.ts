@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { RoslibService } from '../services/roslib.service';
 import { WebSocketService } from '../services/web-socket.service';
 
@@ -14,6 +14,9 @@ declare var NAV2D:any;
 export class SlamComponent implements OnInit {
 
   public viewer:any;
+  public paN:any;
+  public startcoor:any = [];
+  public movecoor:any = [];
 
   constructor(public rosServ:RoslibService, public websoc:WebSocketService) { }
 
@@ -26,6 +29,7 @@ export class SlamComponent implements OnInit {
 
   public startRos(){
     this.rosServ.Init();
+    this.doSlam();
   }
 
   doSlam(){
@@ -33,19 +37,52 @@ export class SlamComponent implements OnInit {
       this.viewer = new ROS2D.Viewer({
         divID : 'slam',
         width :750,
-        height : 800
+        height : 800,
+        background : '#7F7F7F'
       });
+
+      this.paN = new ROS2D.PanView({
+        rootObject: this.viewer.scene
+      })
+      
+      var imagemarker = new ROS2D.NavigationImage({
+        size : 2.5,
+        image : 'assets/arrow.svg',
+        pulse : true
+      })
+
+      
+
           // // Setup the nav client.
       var nav = new NAV2D.OccupancyGridClientNav({
         ros : this.rosServ.ros,
         rootObject : this.viewer.scene,
         viewer : this.viewer,
         continuous : true,
-        serverName : '/move_base'
-        // image :"assets/arrow.svg"
+        serverName : '/move_base',
+        image :'assets/arrow.svg'
       });
 
   }
+
+  // @HostListener('mousedown',['$event'])
+  onMouseDown(event:MouseEvent){
+    this.paN.startPan(event.clientX,event.clientY)
+    this.startcoor[0]=event.clientX;
+    this.startcoor[1]=event.clientY;
+    // this.paN.pan(event.clientX,event.clientY)
+    // this.onMouseMove(event)
+  }
+  
+
+  // @HostListener('mousemove',['$event'])
+  onMouseMove(event:MouseEvent){
+    this.paN.pan(event.clientX,event.clientY)
+    this.movecoor[0]=event.clientX
+    this.movecoor[1]=event.clientY
+  }
+
+
   zoomIn(){
     var zoom = new ROS2D.ZoomView({
       ros: this.rosServ.ros,
@@ -67,17 +104,17 @@ export class SlamComponent implements OnInit {
   }
 
   sendCommand() {
-    const command = new ROSLIB.Message({
-        data: 'do_slam'
-    });
+    // const command = new ROSLIB.Message({
+    //     data: 'do_slam'
+    // });
 
-    const commandPublisher = new ROSLIB.Topic({
-        ros: this.rosServ.ros,
-        name: 'webapp_command',
-        messageType: 'std_msgs/String'
-    });
+    // const commandPublisher = new ROSLIB.Topic({
+    //     ros: this.rosServ.ros,
+    //     name: 'webapp_command',
+    //     messageType: 'std_msgs/String'
+    // });
 
-    commandPublisher.publish(command);
+    // commandPublisher.publish(command);
     setTimeout(()=>{this.doSlam()},5000)
 
 }
