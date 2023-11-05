@@ -36,6 +36,12 @@ export class RoslibService {
     })
     this.ros.on("connection",()=>{
       console.log("connection established")
+      
+    })
+    this.ros.on("close",()=>{
+      console.log("connection closed")
+      console.log("robot_pose_publisher closed")
+      //send command to close robot_pose_publisher
     })
 
     this.subs = new ROSLIB.Topic({

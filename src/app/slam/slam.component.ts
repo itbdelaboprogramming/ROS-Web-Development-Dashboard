@@ -17,6 +17,7 @@ export class SlamComponent implements OnInit {
   public paN:any;
   public startcoor:any = [];
   public movecoor:any = [];
+  public isDrag = false;
 
   constructor(public rosServ:RoslibService, public websoc:WebSocketService) { }
 
@@ -63,23 +64,35 @@ export class SlamComponent implements OnInit {
         image :'assets/arrow.svg'
       });
 
+      setTimeout(()=>{
+        //send command to start robot_pose_publisher
+        
+      },3000)
+
   }
 
   // @HostListener('mousedown',['$event'])
   onMouseDown(event:MouseEvent){
     this.paN.startPan(event.clientX,event.clientY)
+    this.isDrag = true;
     this.startcoor[0]=event.clientX;
     this.startcoor[1]=event.clientY;
     // this.paN.pan(event.clientX,event.clientY)
     // this.onMouseMove(event)
   }
   
+  onMouseUp(event:MouseEvent){
+    this.isDrag = false;
+  }
 
   // @HostListener('mousemove',['$event'])
   onMouseMove(event:MouseEvent){
-    this.paN.pan(event.clientX,event.clientY)
-    this.movecoor[0]=event.clientX
-    this.movecoor[1]=event.clientY
+    if(this.isDrag){
+      this.paN.pan(event.clientX,event.clientY)
+      this.movecoor[0]=event.clientX
+      this.movecoor[1]=event.clientY
+    }
+
   }
 
 

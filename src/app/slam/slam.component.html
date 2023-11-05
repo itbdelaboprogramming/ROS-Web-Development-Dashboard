@@ -17,11 +17,13 @@
   <button (click)="loadMap()">Load Map</button>
 </div>
 
-<button >Drag</button>
-<p>Start coordinate</p>
+<!-- <p>Start coordinate</p>
 <p>{{startcoor[0]}}</p>
 <p>{{startcoor[1]}}</p>
 <p>{{movecoor[0]}}</p>
-<p>{{movecoor[1]}}</p>
+<p>{{movecoor[1]}}</p> -->
 <!-- <app-joystick></app-joystick> -->
-<div id="slam" (mousedown)="onMouseDown($event)" (mousemove)="onMouseMove($event)" class="map"></div>
+<div class="mapcontainer">
+  <div id="slam" (mousedown)="onMouseDown($event)" (mousemove)="onMouseMove($event)" (mouseup)="onMouseUp($event)" class="map"></div>
+</div>
+
