@@ -10,20 +10,40 @@
   <button (click)="Stop()">STOP</button>
   <button (click)="RotR()">RotateCCW</button>
   <button (click)="RotL()">RotateCW</button>
+  <button (click)="RotMapCW()">Rotate Map CW</button>
+  <button (click)="RotMapCCW()">Rotate Map CCW</button>
+  <button (click)="ResetRot()">Reset Map Rotation</button>
+  <button (click)="removeAll()">Remove</button>
 </div>
 
-<div class="saveload-map">
-  <button (click)="saveMap()">Save Map</button>
-  <button (click)="loadMap()">Load Map</button>
+<div class="navigation" style="margin-top: 15px;">
+  <button id="initButton" (click)="init_Pose()" >Initial Pose</button>
+  <button id="multiModeButton" (click)="multiPoint()" >Single Pin Point Mode</button>
+  <button (click)="startNavigation()">Start Navigation</button>
+  <button (click)="renderTable()">Reload Table</button>
+  <button (click)="cancelGoal()">Cancel Goal</button>
+  <button id="setHomebtn" (click)="setHomeBase()">Set Home Base</button>
+  <button (click)="returnToHome()">Return to Home</button>
+  <button id="navStatebtn" (click)="navigationState()">SLAM mode</button>
 </div>
 
-<!-- <p>Start coordinate</p>
-<p>{{startcoor[0]}}</p>
-<p>{{startcoor[1]}}</p>
-<p>{{movecoor[0]}}</p>
-<p>{{movecoor[1]}}</p> -->
-<!-- <app-joystick></app-joystick> -->
 <div class="mapcontainer">
-  <div id="slam" (mousedown)="onMouseDown($event)" (mousemove)="onMouseMove($event)" (mouseup)="onMouseUp($event)" class="map"></div>
+  <!-- <div id="slam" (mousedown)="onMouseDown($event)" (mousemove)="onMouseMove($event)" (mouseup)="onMouseUp($event)" class="map"></div> -->
+  <div id="slam" class="map"></div>
 </div>
+
+<table id="data-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>X</th>
+      <th>Y</th>
+      <th>Orientation</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Data will be dynamically added here -->
+  </tbody>
+</table>
 

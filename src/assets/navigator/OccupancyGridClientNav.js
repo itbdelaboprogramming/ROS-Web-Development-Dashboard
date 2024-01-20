@@ -19,6 +19,7 @@
  *   * withOrientation (optional) - if the Navigator should consider the robot orientation (default: false)
  *   * image (optional) - the route of the image if we want to use the NavigationImage instead the NavigationArrow
  *   * viewer - the main viewer to render to
+ *   * init_pose (optional) - if true then the Navigator will be use to set 2D Pose Estimate (default: false)
  */
 NAV2D.OccupancyGridClientNav = function (options) {
   var that = this;
@@ -34,6 +35,7 @@ NAV2D.OccupancyGridClientNav = function (options) {
   var viewer = options.viewer;
   var withOrientation = options.withOrientation || false;
   var image = options.image || false;
+  var init_pose = options.init_pose || false;
   var old_state = null;
 
   // setup a client to get the map
@@ -53,7 +55,9 @@ NAV2D.OccupancyGridClientNav = function (options) {
     rootObject: rootObject,
     withOrientation: withOrientation,
     image: image,
+    init_pose: init_pose
   });
+
 
   client.on("change", function () {
     // scale the viewer to fit the map

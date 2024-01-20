@@ -38,10 +38,7 @@
               "src/assets/eventemitter2.min.js",
               "src/assets/ros2d.js",
               "src/assets/test1.js",
-              "src/assets/Nav2D.js",
-              "src/assets/navigator/OccupancyGridClientNav.js",
-              "src/assets/navigator/Navigator.js",
-              "src/assets/navigator/ImageMapClientNav.js"
+              "src/assets/Nav2D.js"
             ]
           },
           "configurations": {

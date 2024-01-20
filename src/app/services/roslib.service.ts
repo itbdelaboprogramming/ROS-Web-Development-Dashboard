@@ -42,6 +42,17 @@ export class RoslibService {
       console.log("connection closed")
       console.log("robot_pose_publisher closed")
       //send command to close robot_pose_publisher
+        //send command to start robot_pose_publisher
+        const command = new ROSLIB.Message({
+          data : 'end_robot_pose_publisher'
+        });
+
+        const commandPublisher = new ROSLIB.Topic({
+          ros : this.ros,
+          name : 'webapp_command',
+          messageType : 'std_msgs/String'
+        });
+        commandPublisher.publish(command);
     })
 
     this.subs = new ROSLIB.Topic({
@@ -50,9 +61,9 @@ export class RoslibService {
       messageType : "nav_msgs/Odometry"
     })
 
-    this.subs.subscribe((message:any)=>{
-      console.log(message.twist.twist.linear.x)
-    })
+    // this.subs.subscribe((message:any)=>{
+    //   console.log(message.twist.twist.linear.x)
+    // })
 
    }
 

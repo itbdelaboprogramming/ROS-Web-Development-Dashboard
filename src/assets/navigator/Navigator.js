@@ -19,6 +19,7 @@
  *   * actionName (optional) - the navigation action name, like 'move_base_msgs/MoveBaseAction'
  *   * rootObject (optional) - the root object to add the click listeners to and render robot markers to
  *   * withOrientation (optional) - if the Navigator should consider the robot orientation (default: false)
+ *   * init_pose (optional) - if true then the Navigator will be use to set 2D Pose Estimate (default: false)
  */
 NAV2D.Navigator = function (options) {
   var that = this;
@@ -30,11 +31,17 @@ NAV2D.Navigator = function (options) {
   var actionName = options.actionName || "move_base_msgs/MoveBaseAction";
   var withOrientation = options.withOrientation || false;
   var use_image = options.image;
+  var init_pose = options.init_pose || false;
+  var multiPoint = false;
   this.rootObject = options.rootObject || new createjs.Container();
 
   this.goalMarker = null;
 
   var currentGoal;
+
+  this.multigoalMark = [];
+  this.multiPose = [];
+  this.poseList = [];
 
   // setup the actionlib client
   var actionClient = new ROSLIB.ActionClient({
@@ -94,8 +101,113 @@ NAV2D.Navigator = function (options) {
 
     goal.on("result", function () {
       that.rootObject.removeChild(that.goalMarker);
+      that.goalMarker = null;
     });
   }
+
+    /**
+   * Send a goal to the navigation stack with the given pose.
+   *
+   * @param pose - the goal pose
+   */
+    function multiGoal(pose) {
+
+      var length = that.multigoalMark.length;
+      var x;
+
+      if (length < 1) {
+        x = 0;
+      }
+      else {
+        x = length;
+      }
+
+      that.multiPose[x] = pose;
+      // that.poseList[x] = {id: x, px: pose.position.x, py: pose.position.y, pw: stage.rosQuaternionToGlobalTheta(pose.orientation)}
+      that.multigoalMark[x] = new ROS2D.NavigationArrow({
+        size: 15,
+        strokeSize: 1,
+        fillColor: createjs.Graphics.getRGB(255, 64, 128, 0.66),
+        pulse: true,
+      });
+      that.rootObject.addChild(that.multigoalMark[x]);
+  
+
+      that.multigoalMark[x].x = pose.position.x;
+      that.multigoalMark[x].y = -pose.position.y;
+      that.multigoalMark[x].rotation = stage.rosQuaternionToGlobalTheta(
+        pose.orientation
+      );
+      that.multigoalMark[x].scaleX = 1.0 / stage.scaleX;
+      that.multigoalMark[x].scaleY = 1.0 / stage.scaleY;
+  
+      // goal.on("result", function () {
+      //   that.rootObject.removeChild(that.goalMarker);
+      // });
+    }
+
+      /**
+   * Send a goal to the navigation stack with the given pose.
+   *
+   * @param pose - the goal pose
+   */
+    function asyncFunc(ind){
+        return new Promise((resolve)=>{
+          var goal = new ROSLIB.Goal({
+            actionClient: actionClient,
+            goalMessage: {
+              target_pose: {
+                header: {
+                  frame_id: "map",
+                },
+                pose: that.multiPose[ind],
+              },
+            },
+          });
+          goal.send();
+          goal.on("result", function () {
+            // that.rootObject.removeChild(that.multigoalMark[i]);
+            resolve()
+          });
+  
+        })
+      }
+
+        /**
+   * Send a goal to the navigation stack with the given pose.
+   *
+   * @param pose - the goal pose
+   */
+  async function startNav(){
+        // create a goal
+        var length = that.multiPose.length;
+        for(var i=0;i<length;i++){
+          // var goal = new ROSLIB.Goal({
+          //   actionClient: actionClient,
+          //   goalMessage: {
+          //     target_pose: {
+          //       header: {
+          //         frame_id: "map",
+          //       },
+          //       pose: that.multiPose[i],
+          //     },
+          //   },
+          // });
+          // goal.send();
+      
+          // that.currentGoal = goal;
+          // var loop = true;
+          await asyncFunc(i);
+          that.rootObject.removeChild(that.multigoalMark[i]);
+
+        }
+        that.multigoalMark = [];
+        that.multiPose = [];
+        that.poseList = [];
+
+  }
+
+
 
   /**
    * Cancel the currently active goal.
@@ -133,10 +245,22 @@ NAV2D.Navigator = function (options) {
     });
   }
 
+  var homeBaseMarker = new ROS2D.NavigationArrow({
+    size: 15,
+    strokeSize: 1,
+    fillColor: createjs.Graphics.getRGB(0, 0, 255, 0.66),
+    pulse: false,
+  });
+  homeBaseMarker.visible = false;
+  this.rootObject.addChild(homeBaseMarker);
+
   // wait for a pose to come in first
   robotMarker.visible = false;
   this.rootObject.addChild(robotMarker);
   var initScaleSet = false;
+
+  homeBaseMarker.x = 0;
+  homeBaseMarker.y = 0;
 
   var updateRobotPosition = function (pose, orientation) {
     // update the robots position on the map
@@ -146,6 +270,9 @@ NAV2D.Navigator = function (options) {
     if (!initScaleSet) {
       robotMarker.scaleX = 1.0 / stage.scaleX;
       robotMarker.scaleY = 1.0 / stage.scaleY;
+      homeBaseMarker.scaleX = 1.0 / stage.scaleX;
+      homeBaseMarker.scaleY = 1.0 / stage.scaleY;
+      homeBaseMarker.visible = true;
       initScaleSet = true;
     }
     // change the angle
@@ -169,9 +296,9 @@ NAV2D.Navigator = function (options) {
     poseListener.subscribe(function (pose) {
       //console.log(pose.position);
       //console.log(pose.orientation);
-      console.log(that.rootObject);
-      console.log(robotMarker);
-      console.log("add robot marker");
+      // console.log(that.rootObject);
+      // console.log(robotMarker);
+      // console.log("add robot marker");
       updateRobotPosition(pose.position, pose.orientation);
     });
   }
@@ -200,12 +327,15 @@ NAV2D.Navigator = function (options) {
     var yDelta = 0;
 
     var mouseEventHandler = function (event, mouseState) {
+      if (event.nativeEvent.button === 0) {
       if (mouseState === "down") {
         // get position when mouse button is pressed down
         position = stage.globalToRos(event.stageX, event.stageY);
         positionVec3 = new ROSLIB.Vector3(position);
         mouseDown = true;
-      } else if (mouseState === "move") {
+      } 
+      
+      else if (mouseState === "move") {
         // remove obsolete orientation marker
         that.rootObject.removeChild(orientationMarker);
 
@@ -287,9 +417,51 @@ NAV2D.Navigator = function (options) {
           position: positionVec3,
           orientation: orientation,
         });
+
+        if (init_pose == false) {
         // send the goal
-        sendGoal(pose);
+          if (multiPoint == false) {
+            sendGoal(pose);
+          }
+          else {
+            multiGoal(pose);
+          }
+        }
+        if (init_pose == true) {
+          var pub = new ROSLIB.Topic({
+            ros : ros,
+            name : "/initialpose",
+            messageType : "geometry_msgs/PoseWithCovarianceStamped"
+          })
+      
+          var currentTime = new Date();
+          var secs = Math.floor(currentTime.getTime()/1000);
+          var nsecs = Math.round(
+            1000000000 * (currentTime.getTime() / 1000 - secs)
+          );
+          var msg = new ROSLIB.Message({
+            header : {
+              stamp : {
+                secs: secs,
+                nsecs : nsecs
+              },
+              frame_id : "map"
+            },
+            pose : {pose}
+            
+          });
+  
+          pub.publish(msg);
+          that.rootObject.removeChild(orientationMarker);
+          console.log("initial pose published")
+        }
+      } 
+      else if (mouseState === 'dblclick' && multiPoint == false){
+        that.cancelGoal();
       }
+
+    }
+    
     };
 
     this.rootObject.addEventListener("stagemousedown", function (event) {
@@ -303,5 +475,34 @@ NAV2D.Navigator = function (options) {
     this.rootObject.addEventListener("stagemouseup", function (event) {
       mouseEventHandler(event, "up");
     });
+
+    this.rootObject.addEventListener('dblclick', function(event) {
+      mouseEventHandler(event,'dblclick');
+    });
   }
+
+  NAV2D.Navigator.prototype.testNaav = function() {
+    console.log("this is from navigator");
+  }
+
+  NAV2D.Navigator.prototype.startNaav = function() {
+    console.log("navigation started");
+    startNav();
+  }
+
+  NAV2D.Navigator.prototype.initPose = function(state) {
+    console.log("Initpose");
+    init_pose = state;
+  }
+
+  NAV2D.Navigator.prototype.multiPointMode = function(state) {
+    console.log("multipoint mode");
+    multiPoint = state;
+  }
+
+  NAV2D.Navigator.prototype.pinPointList = function() {
+    console.log("pin point list updated");
+    return(that.poseList);
+  }
+
 };
