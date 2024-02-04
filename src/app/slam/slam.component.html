@@ -1,7 +1,7 @@
 <p>Enter robot ip address</p>
 <input [(ngModel)]="rosServ.ip">
 <button (click)="startRos()">ENTER</button>
-<div class="control">
+<!-- <div class="control">
   <button (click)="sendCommand()">START</button>
   <button (click)="zoomIn()">Zoom In</button>
   <button (click)="zoomOut()">Zoom Out</button>
@@ -14,16 +14,18 @@
   <button (click)="RotMapCCW()">Rotate Map CCW</button>
   <button (click)="ResetRot()">Reset Map Rotation</button>
   <button (click)="removeAll()">Remove</button>
-</div>
+</div> -->
 
 <div class="navigation" style="margin-top: 15px;">
   <button id="initButton" (click)="init_Pose()" >Initial Pose</button>
   <button id="multiModeButton" (click)="multiPoint()" >Single Pin Point Mode</button>
   <button (click)="startNavigation()">Start Navigation</button>
-  <button (click)="renderTable()">Reload Table</button>
-  <button (click)="cancelGoal()">Cancel Goal</button>
+  <!-- <button (click)="renderTable()">Reload Table</button> -->
+  <!-- <button (click)="cancelGoal()">Cancel Goal</button> -->
   <button id="setHomebtn" (click)="setHomeBase()">Set Home Base</button>
   <button (click)="returnToHome()">Return to Home</button>
+  <button (click)="startNavLoop()">Play</button>
+  <button (click)="pauseNav()">Pause</button>
   <button id="navStatebtn" (click)="navigationState()">SLAM mode</button>
 </div>
 

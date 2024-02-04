@@ -37,7 +37,7 @@ export class SlamComponent implements OnInit {
   ngOnInit(): void {
 
     this.websoc.Init();
-    this.renderTable();
+    // this.renderTable();
 
 
   }
@@ -158,6 +158,14 @@ export class SlamComponent implements OnInit {
 
   startNavigation(){
     this.nav.navigator.startNaav();
+  }
+
+  startNavLoop(){
+    this.nav.navigator.startNaavLoop();
+  }
+
+  pauseNav(){
+    this.nav.navigator.pauseNav();
   }
 
   multiPoint(){

@@ -143,6 +143,9 @@ NAV2D.Navigator = function (options) {
   this.goalMarker = null;
 
   var currentGoal;
+  var forward = true;
+  var seq = 0;
+  var pause = false;
 
   this.multigoalMark = [];
   this.multiPose = [];
@@ -237,6 +240,14 @@ NAV2D.Navigator = function (options) {
         pulse: true,
       });
       that.rootObject.addChild(that.multigoalMark[x]);
+
+      that.multigoalMark[x].addEventListener("dblclick", function (event) {
+        if (multiPoint == true && navigationStart == false) {
+          that.rootObject.removeChild(that.multigoalMark[x]);
+          that.multigoalMark.splice(x,1);
+          that.multiPose.splice(x,1);
+        }
+      });
   
 
       that.multigoalMark[x].x = pose.position.x;
@@ -291,21 +302,6 @@ NAV2D.Navigator = function (options) {
         var length = that.multiPose.length;
         navigationStart = true;
         for(var i=0;i<length;i++){
-          // var goal = new ROSLIB.Goal({
-          //   actionClient: actionClient,
-          //   goalMessage: {
-          //     target_pose: {
-          //       header: {
-          //         frame_id: "map",
-          //       },
-          //       pose: that.multiPose[i],
-          //     },
-          //   },
-          // });
-          // goal.send();
-      
-          // that.currentGoal = goal;
-          // var loop = true;
           await asyncFunc(i);
           that.rootObject.removeChild(that.multigoalMark[i]);
 
@@ -314,6 +310,47 @@ NAV2D.Navigator = function (options) {
         that.multiPose = [];
         that.poseList = [];
         navigationStart = false;
+
+  }
+
+    /**
+   * Send a goal to the navigation stack with the given pose.
+   *
+   * @param pose - the goal pose
+   */
+  async function startNavLoop(){
+    navigationStart = true;
+    contloop: while (true) {
+      if (forward == true) {
+        var length = that.multiPose.length;
+        for(var i=0;seq<length;seq++){
+          await asyncFunc(seq);
+          if (pause == true) {
+            break contloop;
+          }
+          // that.rootObject.removeChild(that.multigoalMark[i]);
+  
+        }
+        forward = false;
+      }
+
+      for(var i=0;seq>=0;seq--){
+        await asyncFunc(seq);
+        if (pause == true) {
+          break contloop;
+        }
+        // that.rootObject.removeChild(that.multigoalMark[i]);
+
+      }
+      forward = true;
+      // that.multigoalMark = [];
+      // that.multiPose = [];
+      // that.poseList = [];
+      // navigationStart = false;
+
+    }
+
+    navigationStart = false;
 
   }
 
@@ -631,16 +668,16 @@ NAV2D.Navigator = function (options) {
         positionVec3 = null;
         console.log("mouse double clicked")
        }
-       else if (multiPoint == true && navigationStart == false) {
-        var length = that.multigoalMark.length;
-        that.rootObject.removeChild(that.multigoalMark[length-1]);
-        that.multigoalMark.pop();
-        that.multiPose.pop();
-        mouseDown = false;
-        position = null;
-        positionVec3 = null;
-        console.log("mouse double clicked")
-       }
+      //  else if (multiPoint == true && navigationStart == false) {
+      //   var length = that.multigoalMark.length;
+      //   that.rootObject.removeChild(that.multigoalMark[length-1]);
+      //   that.multigoalMark.pop();
+      //   that.multiPose.pop();
+      //   mouseDown = false;
+      //   position = null;
+      //   positionVec3 = null;
+      //   console.log("mouse double clicked")
+      //  }
        else if (multiPoint == true && navigationStart == true) {
         console.log("goal canceled");
         that.cancelGoal();
@@ -685,6 +722,19 @@ NAV2D.Navigator = function (options) {
   NAV2D.Navigator.prototype.startNaav = function() {
     console.log("navigation started");
     startNav();
+  }
+
+  NAV2D.Navigator.prototype.startNaavLoop = function() {
+    console.log("navigation loop started");
+    pause = false;
+    startNavLoop();
+  }
+
+  NAV2D.Navigator.prototype.pauseNav = function() {
+    console.log("navigation paused");
+    that.cancelGoal();
+    pause = true;
+    navigationStart = false;
   }
 
   NAV2D.Navigator.prototype.initPose = function(state) {
